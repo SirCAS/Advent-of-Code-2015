@@ -14,7 +14,7 @@ namespace AdventOfCode
             Console.WriteLine("Parsing instructions from:  {0}", InstructionFile);
 
             var instructionString = File.ReadAllText(InstructionFile);
-            var endFloorNo = SantaInstructionParser.ParseIntructions(instructionString);
+            var endFloorNo = SantaInstructionParser.FindEndingFloorNo(instructionString);
 
             Console.WriteLine("Resulting floor is: {0}", endFloorNo);
             Console.WriteLine();

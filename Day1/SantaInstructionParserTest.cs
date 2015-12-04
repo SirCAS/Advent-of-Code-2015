@@ -10,52 +10,52 @@ namespace AdventOfCode
     public class SantaInstructionParserTest
     {
         [Test]
-        public void InstructionsForGroundFloorTest()
+        public void FindEndingFloorNo_InstructionsForGroundFloorTest()
         {
             // 1. Arrange
             const string instructions = "(())";
 
             // 2. Act
-            var result = SantaInstructionParser.ParseIntructions(instructions);
+            var result = SantaInstructionParser.FindEndingFloorNo(instructions);
 
             // 3. Assert
             Assert.AreEqual(0, result);
         }
 
         [Test]
-        public void InstructionsForThridFloorTest()
+        public void FindEndingFloorNo_InstructionsForThridFloorTest()
         {
             // 1. Arrange
             const string instructions = "(((";
 
             // 2. Act
-            var result = SantaInstructionParser.ParseIntructions(instructions);
+            var result = SantaInstructionParser.FindEndingFloorNo(instructions);
 
             // 3. Assert
             Assert.AreEqual(3, result);
         }
 
         [Test]
-        public void InstructionsForFirstBasementLevelTest()
+        public void FindEndingFloorNo_InstructionsForFirstBasementLevelTest()
         {
             // 1. Arrange
             const string instructions = "())";
 
             // 2. Act
-            var result = SantaInstructionParser.ParseIntructions(instructions);
+            var result = SantaInstructionParser.FindEndingFloorNo(instructions);
 
             // 3. Assert
             Assert.AreEqual(-1, result);
         }
 
         [Test]
-        public void InstructionsForThirdBasementLevelTest()
+        public void FindEndingFloorNo_InstructionsForThirdBasementLevelTest()
         {
             // 1. Arrange
             const string instructions = ")())())";
 
             // 2. Act
-            var result = SantaInstructionParser.ParseIntructions(instructions);
+            var result = SantaInstructionParser.FindEndingFloorNo(instructions);
 
             // 3. Assert
             Assert.AreEqual(-3, result);
