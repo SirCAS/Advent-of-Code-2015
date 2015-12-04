@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace AdventOfCode
+namespace AdventOfCode.Day1
 {
     public static class SantaInstructionParser
     {

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AdventOfCode
+namespace AdventOfCode.Day1
 {
     /// <summary>
     /// Test for the SantaInstructionParser
