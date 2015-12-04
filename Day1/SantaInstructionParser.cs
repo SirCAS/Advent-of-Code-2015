@@ -21,5 +21,26 @@ namespace AdventOfCode
             return ups - downs;
         }
 
+        /// <summary>
+        /// Find the position of which character that causes santa to enter the basement (floor -1)
+        /// The first character in the instructions has position 1
+        /// If the basement is never hit then zero is returned
+        /// </summary>
+        /// <param name="instructions">The instructions</param>
+        /// <returns>The position of the character for the basement</returns>
+        public static int FindFirstCharPositionForBasement(string instructions)
+        {
+            int floor = 0;
+
+            for (int x = 0; x < instructions.Length; ++x)
+            {
+                if (instructions[x] == ')') --floor;
+                if (instructions[x] == '(') ++floor;
+
+                if (floor == -1) return x + 1;
+            }
+
+            return 0;
+        }
     }
 }

@@ -60,5 +60,45 @@ namespace AdventOfCode
             // 3. Assert
             Assert.AreEqual(-3, result);
         }
+
+        [Test]
+        public void FindFirstCharPositionForBasement_FirstCharGivesBasementTest()
+        {
+            // 1. Arrange
+            const string instructions = ")";
+
+            // 2. Act
+            var result = SantaInstructionParser.FindFirstCharPositionForBasement(instructions);
+
+            // 3. Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void FindFirstCharPositionForBasement_FifthCharGivesBasementTest()
+        {
+            // 1. Arrange
+            const string instructions = "()())";
+
+            // 2. Act
+            var result = SantaInstructionParser.FindFirstCharPositionForBasement(instructions);
+
+            // 3. Assert
+            Assert.AreEqual(5, result);
+        }
+
+        [Test]
+        public void FindFirstCharPositionForBasement_BasementIsNeverReachedTest()
+        {
+            // 1. Arrange
+            const string instructions = "((((";
+
+            // 2. Act
+            var result = SantaInstructionParser.FindFirstCharPositionForBasement(instructions);
+
+            // 3. Assert
+            Assert.AreEqual(0, result);
+        }
+
     }
 }
