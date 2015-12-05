@@ -51,6 +51,7 @@
     <Compile Include="PresentModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PresentExtractoryTest.cs" />
     <Compile Include="WrappingPaperCalculatorTest.cs" />
     <Compile Include="WrappingCalculator.cs" />
   </ItemGroup>
