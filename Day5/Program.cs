@@ -17,8 +17,10 @@ namespace AdventOfCode.Day5
             var input = File.ReadAllLines(inputFileName);
 
             var niceWords = input.Count(SantaWordValidator.IsNice);
+            var newNiceWords = input.Count(SantaWordValidator.IsNewNice);
 
             Console.WriteLine("There's {0} nice words in the list", niceWords);
+            Console.WriteLine("There's {0} words of the \"new nice\" in the list", newNiceWords);
 
             Console.WriteLine();
             Console.WriteLine("Press any key to end...");
