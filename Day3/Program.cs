@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Day3
+namespace AdventOfCode.Day3
 {
     // The assignment description is not clear on the situation where both Robo-Santa and Santa are to the same house.
     // Do they recognize each other and only drop a single present?

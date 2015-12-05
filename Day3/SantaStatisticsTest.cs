@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Day3
+namespace AdventOfCode.Day3
 {
     [TestFixture]
     public class SantaStatisticsTest

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Day3
+namespace AdventOfCode.Day3
 {
     public static class SantaRouteTracker
     {
