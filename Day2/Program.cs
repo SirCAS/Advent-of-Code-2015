@@ -15,12 +15,15 @@ namespace AdventOfCode.Day2
 
             var presentsString = File.ReadAllText(PresentsFile);
 
-            var totalWrappingPaperNeeded = WrappingPaperCalculator.CalculateNeededPaperFromStrList(presentsString);
+            var presents = PresentExtractor.ExtractPresents(presentsString);
 
-            Console.WriteLine("The needed wrapping paper in square feets are: {0}", totalWrappingPaperNeeded);
+            var paper = WrappingCalculator.CalculateNeededPaper(presents);
+            var ribbon = WrappingCalculator.CalculateNeededRibbon(presents);
+
+            Console.WriteLine("The needed amount of wrapping paper is {0} square feets and {1} feets of wrapping ribbon", paper, ribbon);
 
             Console.WriteLine();
-            Console.WriteLine("Press any key to end parser");
+            Console.WriteLine("Press any key to end...");
             Console.ReadKey();
         }
     }
