@@ -10,15 +10,17 @@ namespace AdventOfCode.Day4
         private Stopwatch stopwatch;
         private readonly MD5 md5;
         private readonly TimeSpan maxTime;
+        private readonly string hashPattern;
 
-        public AdventCointMiner()
+        public AdventCointMiner(string hashPattern)
         {
-            md5 = MD5.Create();
-            stopwatch = new Stopwatch();
-            maxTime = new TimeSpan(0, 1, 0);
+            this.hashPattern = hashPattern;
+            this.md5 = MD5.Create();
+            this.stopwatch = new Stopwatch();
+            this.maxTime = new TimeSpan(0, 1, 30);
         }
 
-        public int FindValidNumber(string secretKey)
+        public MiningResult FindValidNumber(string secretKey)
         {
             stopwatch = Stopwatch.StartNew();
 
@@ -27,11 +29,16 @@ namespace AdventOfCode.Day4
             {
                 var result = CalculateMd5Hash(secretKey + i);
 
-                if (result.StartsWith("00000"))
+                if (result.StartsWith(hashPattern))
                 {
                     stopwatch.Stop();
 
-                    return i;
+                    return new MiningResult
+                    {
+                        LowestPossibleValue = i,
+                        Hash = result,
+                        ExecutionTime = stopwatch.Elapsed
+                    };
                 }
 
                 ++i;
@@ -40,7 +47,7 @@ namespace AdventOfCode.Day4
 
             stopwatch.Stop();
 
-            throw new TimeoutException("Execution time was longer than one minute - giving up...");
+            throw new TimeoutException();
         }
      
         private string CalculateMd5Hash(string input)
@@ -48,9 +55,9 @@ namespace AdventOfCode.Day4
             byte[] hash = md5.ComputeHash(Encoding.ASCII.GetBytes(input));
 
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
+            foreach (byte t in hash)
             {
-                sb.Append(hash[i].ToString("X2"));
+                sb.Append(t.ToString("X2"));
             }
             return sb.ToString();
         }

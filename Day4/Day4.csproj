@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="AdventCointMinerTest.cs" />
     <Compile Include="AdventCointMiner.cs" />
+    <Compile Include="MiningResult.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
