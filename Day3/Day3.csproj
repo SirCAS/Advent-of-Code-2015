@@ -47,10 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GiftTracker.cs" />
-    <Compile Include="GiftTrackerTest.cs" />
+    <Compile Include="SantaRouteTracker.cs" />
+    <Compile Include="SantaStatisticsTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SantaStatistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
