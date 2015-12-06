@@ -5,7 +5,8 @@ namespace AdventOfCode.Day6
 {
     internal class LightArraySimulator
     {
-        private bool[,] grid = new bool[1000,1000];
+        //private bool[,] grid = new bool[1000, 1000];
+        private int[,] grid = new int[1000,1000];
 
         public void SimulateInstructions(IList<LightArrayInstruction> instructions)
         {
@@ -31,15 +32,19 @@ namespace AdventOfCode.Day6
                     switch (instruction.Action)
                     {
                         case LightArrayActionEnum.TurnOn:
-                            grid[row, col] = true;
+                            //grid[row, col] = true;
+                            ++grid[row, col];
                             break;
 
                         case LightArrayActionEnum.TurnOff:
-                            grid[row, col] = false;
+                            //grid[row, col] = false;
+                            if (grid[row, col] > 0) --grid[row, col];
                             break;
 
                         case LightArrayActionEnum.Toggle:
-                            grid[row, col] = !grid[row, col];
+                            //grid[row, col] = !grid[row, col];
+                            ++grid[row, col];
+                            ++grid[row, col];
                             break;
                     }
                 }
@@ -50,7 +55,8 @@ namespace AdventOfCode.Day6
         {
             get
             {
-                return grid.Cast<bool>().Count(b => b);
+                //return grid.Cast<bool>().Count(b => b);
+                return grid.Cast<int>().Sum();
             }
         }
     }

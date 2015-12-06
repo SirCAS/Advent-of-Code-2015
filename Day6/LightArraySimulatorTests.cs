@@ -63,7 +63,8 @@ namespace AdventOfCode.Day6
             simulator.SimulateInstruction(instruction);
 
             // 3. Assert
-            Assert.AreEqual(10*10, simulator.LightsOn);
+            //Assert.AreEqual(10 * 10, simulator.LightsOn);
+            Assert.AreEqual(10*10*2, simulator.LightsOn);
         }
 
         [Test]
