@@ -10,33 +10,46 @@ namespace AdventOfCode.Day4
         private Stopwatch stopwatch;
         private readonly MD5 md5;
         private readonly TimeSpan maxTime;
-        private readonly string hashPattern;
+        private readonly bool isSixDigit;
 
-        public AdventCointMiner(string hashPattern)
+        public AdventCointMiner(bool isSixDigit)
         {
-            this.hashPattern = hashPattern;
+            this.isSixDigit = isSixDigit;
             this.md5 = MD5.Create();
             this.stopwatch = new Stopwatch();
-            this.maxTime = new TimeSpan(0, 1, 30);
+            this.maxTime = new TimeSpan(0, 3, 0);
         }
 
         public MiningResult FindValidNumber(string secretKey)
+        {
+            return isSixDigit? FindValidNumberWithSixZeros(secretKey) : FindValidNumberWithFiveZeros(secretKey);
+        }
+
+        public MiningResult FindValidNumberWithSixZeros(string secretKey)
         {
             stopwatch = Stopwatch.StartNew();
 
             int i = 0;
             do
             {
-                var result = CalculateMd5Hash(secretKey + i);
+                var result = md5.ComputeHash(Encoding.ASCII.GetBytes(secretKey + i));
 
-                if (result.StartsWith(hashPattern))
+                if (result[0] == (byte) 0 &&
+                    result[1] == (byte) 0 &&
+                    result[2] == (byte) 0)
                 {
                     stopwatch.Stop();
+
+                    StringBuilder sb = new StringBuilder();
+                    foreach (byte t in result)
+                    {
+                        sb.Append(t.ToString("X2"));
+                    }
 
                     return new MiningResult
                     {
                         LowestPossibleValue = i,
-                        Hash = result,
+                        Hash = sb.ToString(),
                         ExecutionTime = stopwatch.Elapsed
                     };
                 }
@@ -49,17 +62,43 @@ namespace AdventOfCode.Day4
 
             throw new TimeoutException();
         }
-     
-        private string CalculateMd5Hash(string input)
-        {
-            byte[] hash = md5.ComputeHash(Encoding.ASCII.GetBytes(input));
 
-            StringBuilder sb = new StringBuilder();
-            foreach (byte t in hash)
+        public MiningResult FindValidNumberWithFiveZeros(string secretKey)
+        {
+            stopwatch = Stopwatch.StartNew();
+
+            int i = 0;
+            do
             {
-                sb.Append(t.ToString("X2"));
-            }
-            return sb.ToString();
+                var result = md5.ComputeHash(Encoding.ASCII.GetBytes(secretKey + i));
+
+                if (result[0] == (byte) 0 &&
+                    result[1] == (byte) 0 &&
+                    result[2] <= (byte) 14) // The max value in hex
+                {
+                    stopwatch.Stop();
+
+                    StringBuilder sb = new StringBuilder();
+                    foreach (byte t in result)
+                    {
+                        sb.Append(t.ToString("X2"));
+                    }
+
+                    return new MiningResult
+                    {
+                        LowestPossibleValue = i,
+                        Hash = sb.ToString(),
+                        ExecutionTime = stopwatch.Elapsed
+                    };
+                }
+
+                ++i;
+
+            } while (stopwatch.Elapsed < maxTime);
+
+            stopwatch.Stop();
+
+            throw new TimeoutException();
         }
     }
 }

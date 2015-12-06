@@ -6,13 +6,13 @@ namespace AdventOfCode.Day4
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("AdventCoin miner 1.0");
+            Console.WriteLine("AdventCoin miner 1.1");
             Console.WriteLine("----------------------------");
 
-            Console.Write("Please pattern to match (e.g. 00000): ");
-            var hashPattern = Console.ReadLine();
+            Console.Write("Find with (S)ix or (F)ive leading zeros: ");
+            string isSixLeadingZerosStr = Console.ReadLine();
 
-            var miner = new AdventCointMiner(hashPattern);
+            var miner = new AdventCointMiner(isSixLeadingZerosStr.Contains("S"));
 
             Console.Write("Please enter your secret key: ");
             var secretKey = Console.ReadLine();
@@ -32,7 +32,7 @@ namespace AdventOfCode.Day4
             catch (TimeoutException e)
             {
                 Console.WriteLine();
-                Console.WriteLine("Bruteforce took longer than 1 minute and 30 seconds - terminating execution...");
+                Console.WriteLine("Bruteforce took longer than 3 minutes - terminating execution...");
             }
 
             Console.WriteLine();
