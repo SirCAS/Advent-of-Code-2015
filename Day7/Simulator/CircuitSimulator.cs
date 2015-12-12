@@ -7,8 +7,10 @@ namespace AdventOfCode.Day7.Simulator
 {
     public class CircuitSimulator : ICircuitSimulator
     {
-        public IDictionary<string, ushort?> RunSimulation(IList<IComponent> components)
+        public IDictionary<string, ushort?> RunSimulation(IList<IComponent> circuit)
         {
+            var components = circuit.ToList();
+
             IDictionary<string, ushort?> result = components.ToDictionary(x => x.OutputName, x => (ushort?)null);
 
             while (components.Any())
@@ -16,6 +18,10 @@ namespace AdventOfCode.Day7.Simulator
                 // Resolve missing components
                 foreach (var item in components.ToList())
                 {
+                    // Check if we have an value already
+                    if (result[item.OutputName].HasValue)
+                        continue;
+
                     // Determine type for appropiate handling
                     if (item.InputType == ComponentInputTypeEnum.TwoComponent)
                     {
@@ -37,7 +43,7 @@ namespace AdventOfCode.Day7.Simulator
                     }
                     else
                     {
-                        var component = ((IOneComponent)item);
+                        var component = ((IOneComponent) item);
 
                         var inputName = component.InputName;
 

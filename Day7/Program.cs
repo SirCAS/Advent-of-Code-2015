@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using AdventOfCode.Day7.Model.Components;
 using AdventOfCode.Day7.Parser;
 using AdventOfCode.Day7.Simulator;
 
@@ -23,11 +25,24 @@ namespace AdventOfCode.Day7
 
             Console.WriteLine("Running simulation...");
             ICircuitSimulator simulator = new CircuitSimulator();
-            var result = simulator.RunSimulation(components);
+            var result1 = simulator.RunSimulation(components);
 
-            var a = result["a"];
+            var a1 = result1["a"];
             
-            Console.WriteLine("Value of a is : " + a);
+            Console.WriteLine("Value of a is : " + a1);
+            Console.WriteLine();
+
+            Console.WriteLine("Overriding wire b with the value of a");
+
+            var wireB = components.Single(x => x.OutputName == "b");
+            components.Remove(wireB);
+            components.Add(new InputComponent(a1.ToString(), "b"));
+
+            Console.WriteLine("Rerunning simulation");
+            var result2 = simulator.RunSimulation(components);
+
+            var a2 = result2["a"];
+            Console.WriteLine("Value of a is : " + a2);
 
             Console.WriteLine();
             Console.WriteLine("Press any key to end...");
