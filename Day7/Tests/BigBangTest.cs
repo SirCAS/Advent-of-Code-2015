@@ -16,7 +16,7 @@ namespace AdventOfCode.Day7.Tests
             var input = File.ReadAllLines(inputFileName);
 
             ICircuitParser parser = new CircuitParser();
-            CircuitSimulator simulator = new CircuitSimulator();
+            ICircuitSimulator simulator = new CircuitSimulator();
 
             // 2. Act
             var components = parser.PaseComponents(input);

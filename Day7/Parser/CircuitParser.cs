@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Day7.Common;
-using AdventOfCode.Day7.Model;
 using AdventOfCode.Day7.Model.Components;
 using AdventOfCode.Day7.Model.Interfaces;
 
@@ -57,17 +56,7 @@ namespace AdventOfCode.Day7.Parser
 
             if (input.Contains(ArrowOperator))
             {
-                string first = input.GetComponentFirstPart(ArrowOperator);
-
-                ushort value = 0;
-                if (ushort.TryParse(first, out value))
-                {
-                    return new InputComponent(output, value);
-                }
-                else
-                {
-                    return new LinkComponent(first, output);
-                }
+                return new InputComponent(input.GetComponentFirstPart(ArrowOperator), output);
             }
 
             throw new ArgumentException("Invalid input param please verify the content of the input file");

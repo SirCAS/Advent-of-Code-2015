@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
 using AdventOfCode.Day7.Parser;
 using AdventOfCode.Day7.Simulator;
-using NUnit.Framework.Constraints;
 
 namespace AdventOfCode.Day7
 {
@@ -24,7 +22,7 @@ namespace AdventOfCode.Day7
             var components = parser.PaseComponents(input);
 
             Console.WriteLine("Running simulation...");
-            CircuitSimulator simulator = new CircuitSimulator();
+            ICircuitSimulator simulator = new CircuitSimulator();
             var result = simulator.RunSimulation(components);
 
             var a = result["a"];

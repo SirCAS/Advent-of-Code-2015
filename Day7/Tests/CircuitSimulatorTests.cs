@@ -15,8 +15,8 @@ namespace AdventOfCode.Day7.Tests
             // 1. Arrange
             var input = new List<IComponent>
             {
-                new InputComponent("x", 123),
-                new InputComponent("y", 456),
+                new InputComponent("123", "x"),
+                new InputComponent("456", "y"),
                 new AndComponent(new[] {"x", "y"}, "d"),
                 new OrComponent(new[] {"x", "y"}, "e"),
                 new LshiftComponent("x", "f", 2),
@@ -25,7 +25,7 @@ namespace AdventOfCode.Day7.Tests
                 new NotComponent("y", "i")
             };
 
-            var simulator = new CircuitSimulator();
+            ICircuitSimulator simulator = new CircuitSimulator();
 
             // 2. Act
             var result = simulator.RunSimulation(input);

@@ -104,10 +104,10 @@ namespace AdventOfCode.Day7.Tests
         }
 
         [Test]
-        public void ParseComponent_InputComponent()
+        public void ParseComponent_InputLetterComponent()
         {
             // 1. Arrange
-            const string input = "133   -> dd";
+            const string input = "b  -> dd";
 
             // 2. Act
             var result = new CircuitParser().ParseComponent(input);
@@ -117,26 +117,27 @@ namespace AdventOfCode.Day7.Tests
 
             Assert.AreEqual(ComponentTypeEnum.Input, component.Type);
             Assert.AreEqual(ComponentInputTypeEnum.OneComponent, component.InputType);
-            Assert.AreEqual(133, component.Value);
+            Assert.AreEqual("b", component.InputName);
             Assert.AreEqual("dd", component.OutputName);
         }
 
         [Test]
-        public void ParseComponent_LinkComponent()
+        public void ParseComponent_InputNumberComponent()
         {
             // 1. Arrange
-            const string input = "b  -> dd";
+            const string input = "51  -> dd";
 
             // 2. Act
             var result = new CircuitParser().ParseComponent(input);
 
             // 3. Assert
-            var component = (LinkComponent)result;
+            var component = (InputComponent)result;
 
-            Assert.AreEqual(ComponentTypeEnum.Link, component.Type);
+            Assert.AreEqual(ComponentTypeEnum.Input, component.Type);
             Assert.AreEqual(ComponentInputTypeEnum.OneComponent, component.InputType);
-            Assert.AreEqual("b", component.InputName);
+            Assert.AreEqual("51", component.InputName);
             Assert.AreEqual("dd", component.OutputName);
         }
+
     }
 }
