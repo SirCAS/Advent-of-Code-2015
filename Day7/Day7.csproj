@@ -34,6 +34,10 @@
     <LangVersion>5</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,12 +47,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Components\LinkComponent.cs" />
+    <Compile Include="Model\Interfaces\IOneComponent.cs" />
+    <Compile Include="Model\Interfaces\ITwoComponent.cs" />
+    <Compile Include="Model\Enums\ComponentInputTypeEnum.cs" />
+    <Compile Include="Model\Abstractions\OneComponent.cs" />
+    <Compile Include="Model\Abstractions\OneWithParamComponent.cs" />
+    <Compile Include="Model\Components\AndComponent.cs" />
+    <Compile Include="Model\Components\LshiftComponent.cs" />
+    <Compile Include="Model\Components\NotComponent.cs" />
+    <Compile Include="Model\Components\OrComponent.cs" />
+    <Compile Include="Model\Components\RshiftComponent.cs" />
+    <Compile Include="Model\Abstractions\TwoComponent.cs" />
+    <Compile Include="Model\Components\InputComponent.cs" />
+    <Compile Include="Parser\CircuitParser.cs" />
+    <Compile Include="Parser\ICircuitParser.cs" />
+    <Compile Include="Simulator\CircuitSimulator.cs" />
+    <Compile Include="Tests\CircuitSimulatorTests.cs" />
+    <Compile Include="Tests\CircuitParserTests.cs" />
+    <Compile Include="Model\Enums\ComponentTypeEnum.cs" />
+    <Compile Include="Model\Interfaces\IComponent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\StringExtension.cs" />
+    <Compile Include="Tests\CurcuitSimulationAutomatedTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="PuzzleInput.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
