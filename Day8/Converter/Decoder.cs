@@ -5,16 +5,16 @@ using Day8.Model;
 
 namespace Day8.Converter
 {
-    public class LiteralConverter
+    public class Decoder
     {
-        private IList<StringContainer> dataSet;
+        private IList<DecodeTracker> dataSet;
 
-        public LiteralConverter(string[] input)
+        public Decoder(string[] input)
         {
             dataSet = input
                 .Select(x => x.Substring(1, x.Length - 2))
                 .SelectMany(x => x)
-                .ToArray().Select(x => new StringContainer
+                .ToArray().Select(x => new DecodeTracker
                 {
                     Value = x,
                     State = ValueState.None

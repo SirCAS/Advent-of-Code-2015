@@ -2,6 +2,8 @@ namespace Day8.Model
 {
     public enum ValueState
     {
-        None, Modified, Deleted
+        None,
+        Modified,
+        Deleted
     }
 }
