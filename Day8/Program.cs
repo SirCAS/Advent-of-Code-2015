@@ -20,9 +20,9 @@ namespace Day8.ConsoleApplication
 
             // Pass data to LiteralDecoder and process input
             var decoder = new Decoder(inputFileLines);
-            decoder.FixBackslash();
-            decoder.FixQuotes();
-            decoder.FixHexaDecimals();
+            decoder.DecodeBackslash();
+            decoder.DecodeQuotes();
+            decoder.DecodeHexaDecimals();
             var decodedResult = decoder.GetResult();
 
             // Pass data to LiteralEncoder and process input
@@ -33,8 +33,8 @@ namespace Day8.ConsoleApplication
             var inputString = new string(inputFileLines.SelectMany(x => x).ToArray());
 
             // Output result to console
-            Console.WriteLine($"  Part 1 result: {(inputString.Length - decodedResult.Length)}");
-            Console.WriteLine($"  Rart 2 result: {(encodedResult.Length - inputString.Length)}");
+            Console.WriteLine($"  Part 1 result: {(inputString.Length - decodedResult.Length)}"); // TODO: Write unittests. Answer is 1350
+            Console.WriteLine($"  Rart 2 result: {(encodedResult.Length - inputString.Length)}"); // TODO: Write unittests. Answer is 2085
             Console.WriteLine($"     - Merry Christmas!");
         }
     }

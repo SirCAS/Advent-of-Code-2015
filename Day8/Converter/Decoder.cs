@@ -22,7 +22,7 @@ namespace Day8.Converter
                 .ToList();
         }
 
-        public void FixHexaDecimals()
+        public void DecodeHexaDecimals()
         {
             for (int x = 0; x < dataSet.Count - 4; ++x)
             {
@@ -52,36 +52,28 @@ namespace Day8.Converter
             }
         }
 
-        public void FixQuotes()
+        public void DecodeQuotes()
         {
-            for (int x = 0; x < dataSet.Count - 1; ++x)
-            {
-                if (
-                    dataSet[x].Value == '\\' &&
-                    dataSet[x].State == ValueState.None &&
-                    dataSet[x + 1].Value == '"' &&
-                    dataSet[x + 1].State == ValueState.None
-                    )
-                {
-                    dataSet[x].Value = '"';
-                    dataSet[x].State = ValueState.Modified;
-                    dataSet[x + 1].State = ValueState.Deleted;
-                }
-            }
+            DecodeSequence('\\', '"');
         }
 
-        public void FixBackslash()
+        public void DecodeBackslash()
+        {
+            DecodeSequence('\\', '\\');
+        }
+
+        private void DecodeSequence(char firstChar, char secondChar)
         {
             for (int x = 0; x < dataSet.Count - 1; ++x)
             {
                 if (
-                    dataSet[x].Value == '\\' &&
+                    dataSet[x].Value == firstChar &&
                     dataSet[x].State == ValueState.None &&
-                    dataSet[x + 1].Value == '\\' &&
+                    dataSet[x + 1].Value == secondChar &&
                     dataSet[x + 1].State == ValueState.None
                     )
                 {
-                    dataSet[x].Value = '\\';
+                    dataSet[x].Value = secondChar;
                     dataSet[x].State = ValueState.Modified;
                     dataSet[x + 1].State = ValueState.Deleted;
                 }
