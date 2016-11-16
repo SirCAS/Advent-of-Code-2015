@@ -7,15 +7,26 @@ namespace Day13.ConsoleApplication
 {
     public class Program
     {
-        const string DataFileName = "input.txt";
-
         public static void Main(string[] args)
         {
             Console.WriteLine("+-------------------------+");
             Console.WriteLine("| Advent of Code - Day 13 |");
             Console.WriteLine("+-------------------------+");
 
-            var datafile = File.ReadAllLines(DataFileName);
+            Console.WriteLine("Calculating please be patient...");
+
+            var bestPart1 = BestScore("input.txt");
+            var bestPart2 = BestScore("input.part2.txt");
+
+            Console.WriteLine("Best setting for part 1 is {0}", bestPart1);
+            Console.WriteLine("Best setting for part 2 is {0}", bestPart2);
+
+            Console.WriteLine($"  -Gruss Gott");
+        }
+
+        private static int BestScore(string filename)
+        {
+            var datafile = File.ReadAllLines(filename);
 
             var scores = datafile
                 .Select(x => x.Split(' ')) // Split strings when space
@@ -27,11 +38,7 @@ namespace Day13.ConsoleApplication
                         y => y[2] == "lose" ? -int.Parse(y[3]) : int.Parse(y[3]) // Add sign to score
                     ));
 
-            var best = GetPermutations(scores, scores.Count).Select(x => TotalHappiness(x)).Max();
-
-            Console.WriteLine("Best setting is {0}", best);
-
-            Console.WriteLine($"  -Gruss Gott");
+            return GetPermutations(scores, scores.Count).Select(x => TotalHappiness(x)).Max();
         }
 
         private static int TotalHappiness(IEnumerable<KeyValuePair<string, Dictionary<string, int>>> setting)
@@ -44,7 +51,7 @@ namespace Day13.ConsoleApplication
                 totalHappiness += settingList[x].Value[settingList[ x == 0 ? (settingList.Count - 1) : x-1].Key];
                 totalHappiness += settingList[x].Value[settingList[ x == (settingList.Count - 1) ? 0 : x+1].Key];
             }
-
+            
             return totalHappiness;
         }
 
