@@ -38,6 +38,7 @@ namespace Day13.ConsoleApplication
                         y => y[2] == "lose" ? -int.Parse(y[3]) : int.Parse(y[3]) // Add sign to score
                     ));
 
+            // Ideally we should only generate 2-ary bracelets but whatever... I has all the time and CPU
             return GetPermutations(scores, scores.Count).Select(x => TotalHappiness(x)).Max();
         }
 
@@ -51,7 +52,7 @@ namespace Day13.ConsoleApplication
                 totalHappiness += settingList[x].Value[settingList[ x == 0 ? (settingList.Count - 1) : x-1].Key];
                 totalHappiness += settingList[x].Value[settingList[ x == (settingList.Count - 1) ? 0 : x+1].Key];
             }
-            
+
             return totalHappiness;
         }
 
