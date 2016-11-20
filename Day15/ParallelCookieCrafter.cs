@@ -18,6 +18,12 @@ namespace Day15.ConsoleApplication
         /// 1 means one worker pr. ingredient, 2 means two worker pr. ingredient, etc.
         /// </summary>
         private const int ParallelizingFactor = 2;
+
+        /// <summary>
+        /// Determine the target for calcories in the cookies
+        /// If value is null then there will be no validation of calcories
+        /// </summary>
+        private static int? CaloriesTarget = 500;
         
         private static Ingredient[] ingredients;
         private static ConcurrentBag<Recipe> result;
@@ -90,7 +96,7 @@ namespace Day15.ConsoleApplication
             {
                 var recipe = new Recipe();
 
-                int capa = 0, dura = 0, flav = 0, text = 0;
+                int capa = 0, dura = 0, flav = 0, text = 0, calor = 0;
                 
                 for(uint y=0; y < ingredients.Length; ++y)
                 {
@@ -98,13 +104,17 @@ namespace Day15.ConsoleApplication
                     dura += ingredients[y].Durability * coefficients[y];
                     flav += ingredients[y].Flavor * coefficients[y];
                     text += ingredients[y].Texture * coefficients[y];
+                    calor += ingredients[y].Calories * coefficients[y];
                     
                     recipe.Ingredients.Add(ingredients[y], coefficients[y]);
                 }
 
-                recipe.Score = Math.Max(0, capa) * Math.Max(0, dura) * Math.Max(0, flav) * Math.Max(0, text);
+                if(CaloriesTarget.HasValue && calor == CaloriesTarget.Value)
+                {
+                    recipe.Score = Math.Max(0, capa) * Math.Max(0, dura) * Math.Max(0, flav) * Math.Max(0, text);
 
-                result.Add(recipe);
+                    result.Add(recipe);
+                }
             }
         }
     }

@@ -5,9 +5,12 @@ using System.Linq;
 
 namespace Day15.ConsoleApplication
 {
+    // OBS: This codes ONLY works with exactly four recipes
+    //      Please refer to ParallelCookieCrafter for a robust solution
     public static class HardcodedCookieCrafter
     {
         private const int TotalAmount = 100;
+        private const int TargetCalories = 500;
 
         public static Recipe GetAwesomeCookie(string dataFile)
         {
@@ -37,13 +40,18 @@ namespace Day15.ConsoleApplication
                         {
                             if(fourthIngredient + thirdIngredient + secondIngredient + firstIngredient == TotalAmount)
                             {
-                                result.Add(DoRec(new Dictionary<Ingredient, int>
+                                var recipe = CreateRecipe(new Dictionary<Ingredient, int>
                                 {
                                     {ingredients[0], firstIngredient},
                                     {ingredients[1], secondIngredient},
                                     {ingredients[2], thirdIngredient},
                                     {ingredients[3], fourthIngredient},
-                                }));
+                                });
+
+                                if(recipe != null)
+                                {
+                                    result.Add(recipe);
+                                }
                             }
                         }
                     }
@@ -55,21 +63,26 @@ namespace Day15.ConsoleApplication
             return result.First(x => x.Score == winningScore);
         }
 
-        private static Recipe DoRec(Dictionary<Ingredient, int> ingredients)
+        private static Recipe CreateRecipe(Dictionary<Ingredient, int> ingredients)
         {
             int capa = ingredients.Sum(x => x.Key.Capacity * x.Value);
             int dura = ingredients.Sum(x => x.Key.Durability * x.Value);
             int flav = ingredients.Sum(x => x.Key.Flavor * x.Value);
             int text = ingredients.Sum(x => x.Key.Texture * x.Value);
+            int calo = ingredients.Sum(x => x.Key.Calories * x.Value);
 
-            var result = Math.Max(0, capa) * Math.Max(0, dura) * Math.Max(0,flav) * Math.Max(0,text);
-
-            return new Recipe
+            if(calo == TargetCalories)
             {
-                Ingredients = ingredients,
-                Score =  result
-            };
-        }
+                var result = Math.Max(0, capa) * Math.Max(0, dura) * Math.Max(0,flav) * Math.Max(0,text);
 
+                return new Recipe
+                {
+                    Ingredients = ingredients,
+                    Score =  result
+                };
+            }
+
+            return null;
+        }
     }
 }
