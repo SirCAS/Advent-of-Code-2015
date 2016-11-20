@@ -58,13 +58,13 @@ namespace Day16.ConsoleApplication
         {
             int score = 0;
             if(IsGood(sue.Item2, "children", 3)) ++score;
-            if(IsGood(sue.Item2, "cats", 7)) ++score;
+            if(IsGreater(sue.Item2, "cats", 7)) ++score;
             if(IsGood(sue.Item2, "samoyeds", 2)) ++score;
-            if(IsGood(sue.Item2, "pomeranians", 3)) ++score;
+            if(IsLess(sue.Item2, "pomeranians", 3)) ++score;
             if(IsGood(sue.Item2, "akitas", 0)) ++score;
             if(IsGood(sue.Item2, "vizslas", 0)) ++score;
-            if(IsGood(sue.Item2, "goldfish", 5)) ++score;
-            if(IsGood(sue.Item2, "trees", 3)) ++score;
+            if(IsLess(sue.Item2, "goldfish", 5)) ++score;
+            if(IsGreater(sue.Item2, "trees", 3)) ++score;
             if(IsGood(sue.Item2, "cars", 2)) ++score;
             if(IsGood(sue.Item2, "perfumes", 1)) ++score;
             return new Tuple<string, int>(sue.Item1, score);
@@ -73,6 +73,16 @@ namespace Day16.ConsoleApplication
         private static bool IsGood(Dictionary<string, int> item, string key, int value)
         {
             return item.Any(y => y.Key == key && y.Value == value);
+        }
+
+        private static bool IsGreater(Dictionary<string, int> item, string key, int value)
+        {
+            return item.Any(y => y.Key == key && y.Value >= value);
+        }
+
+        private static bool IsLess(Dictionary<string, int> item, string key, int value)
+        {
+            return item.Any(y => y.Key == key && y.Value <= value);
         }
     }
 }
