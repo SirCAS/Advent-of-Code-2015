@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Day19.ConsoleApplication
 {
@@ -23,6 +24,35 @@ namespace Day19.ConsoleApplication
                     );
         }
 
+        static int CountSubstitions(string input, string target, IEnumerable<Tuple<string, string>> mappings)
+        {
+            var random = new Random();
+            var inputCopy = input;
+            var substitions = 0;
+            
+            while (inputCopy != target) // Keep trying until solution are found 
+            {
+                var tmp = inputCopy;
+                foreach (var map in mappings) 
+                {
+                    var index = inputCopy.IndexOf(map.Item2);
+                    if (index >= 0)
+                    {
+                        inputCopy = inputCopy.Substring(0, index) + map.Item1 + inputCopy.Substring(index + map.Item2.Length);
+                        ++substitions;
+                    }
+                }
+
+                if (tmp == inputCopy) // Fail - no changes since last iteration - shuffle mappings and retry
+                {
+                    inputCopy = input;
+                    substitions = 0;
+                    mappings = mappings.OrderBy(x => random.Next()).ToList(); // Shuffle input and try again
+                }
+            }    
+            return substitions;
+        }
+
         public static void Main(string[] args)
         {
             Console.WriteLine("+-------------------------+");
@@ -42,8 +72,11 @@ namespace Day19.ConsoleApplication
             
             var input = problemData.Last();
 
-            var solutions = GetSolutions(input, mappings).Distinct().Count();
-            Console.WriteLine($"There is {solutions}");
+            var part1 = GetSolutions(input, mappings).Distinct().Count();
+            Console.WriteLine($"Part1: There is {part1} solutions");
+
+            var part2 = CountSubstitions(input, "e", mappings);
+            Console.WriteLine($"Part2: {part2} substitions was made to reach target molecule from atoms");
 
             Console.WriteLine($"  -Gruss Gott");
         }
