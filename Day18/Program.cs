@@ -17,6 +17,8 @@ namespace Day18.ConsoleApplication
                 }
                 Console.WriteLine();
             }
+            
+            Console.WriteLine();
         }
 
         public static void Tick(this bool[][] grid, int ticks)
@@ -35,17 +37,17 @@ namespace Day18.ConsoleApplication
         public static void Tick(this bool[][] grid)
         {
             // All of the lights update simultaneously; they all consider the same current state before moving to the next.
-            var newGrid = new bool[grid.Length][];
-            for(int x=0; x<grid.Length; ++x)
-                newGrid[x] = new bool[grid.Length];
+            int size = grid.Length;
+            var newGrid = new bool[size][];
 
-            for(int x=0; x<grid.Length; ++x)
+            for(int x=0; x<size; ++x)
             {
-                for(int y=0; y<grid[x].Length; ++y)
+                newGrid[x] = new bool[size];
+                for(int y=0; y<size; ++y)
                 {
                     var isOn = grid[x][y];
                     var neighbors = GetNeighbors(grid, x, y);
-                    
+
                     if(isOn) // A light which is on stays on when 2 or 3 neighbors are on, and turns off otherwise.
                     {                    
                         if(neighbors == 2 || neighbors == 3)
@@ -67,7 +69,14 @@ namespace Day18.ConsoleApplication
                 }
             }
 
-            for(int x=0; x<grid.Length; ++x)
+            // Defective bulbs
+            newGrid[0][0] = true;
+            newGrid[0][size-1] = true;
+            newGrid[size-1][0] = true;
+            newGrid[size-1][size-1] = true;
+
+            // Overwrite exsisting grid
+            for(int x=0; x<size; ++x)
                 grid[x] = newGrid[x];
         }
 
@@ -102,8 +111,8 @@ namespace Day18.ConsoleApplication
             Console.WriteLine("| Advent of Code - Day 18 |");
             Console.WriteLine("+-------------------------+");
 
-            // const int steps = 4;
-            // const string DataFileName = "input.1.txt";
+            //const int steps = 4;
+            //const string DataFileName = "input.1.txt";
             const int steps = 100;
             const string DataFileName = "input.txt";
 
@@ -113,10 +122,16 @@ namespace Day18.ConsoleApplication
                     x => x.Select(y => y == '#' ? true : false)
                           .ToArray())
                 .ToArray();
-        
-            grid.Tick(steps);
 
-            grid.Print();
+
+            // Defective bulbs
+            var size = grid.Length; 
+            grid[0][0] = true;
+            grid[0][size-1] = true;
+            grid[size-1][0] = true;
+            grid[size-1][size-1] = true;
+
+            grid.Tick(steps);
 
             var turnedOnLights = grid.TurnedOnLights();
 
