@@ -58,6 +58,7 @@ namespace Day21.ConsoleApplication
             Console.WriteLine("+-------------------------+");
             
             List<Tuple<string,int>> playerWins = new List<Tuple<string,int>>();
+            List<Tuple<string,int>> bossWins = new List<Tuple<string,int>>();
 
             foreach(var inventory in Mutations().ToList())
             {
@@ -75,23 +76,26 @@ namespace Day21.ConsoleApplication
 
                 var winner = RolePlayGame.Fight(me, boss);
 
-                if(winner.Name == me.Name)
+                var strBuilder = new StringBuilder();
+                strBuilder.Append($"A: {winner.Armor}, D: {winner.Damage}, HP: {winner.HitPoints}, I: ");
+                foreach(var item in winner.Items)
                 {
-                    var strBuilder = new StringBuilder();
-                    strBuilder.Append($"A: {winner.Armor}, D: {winner.Damage}, HP: {winner.HitPoints}, I: ");
-                    foreach(var item in winner.Items)
-                    {
-                        strBuilder.Append($"[N: {item.Name}, C: {item.Class}, C: {item.Cost} ]");
-                    }
-                    
+                    strBuilder.Append($"[N: {item.Name}, C: {item.Class}, C: {item.Cost} ]");
+                }
+
+                if(winner.Name == me.Name)
+                {                    
                     playerWins.Add(new Tuple<string, int>(strBuilder.ToString(), inventory.Sum(x => x.Cost)));
+                } else {
+                    bossWins.Add(new Tuple<string, int>(strBuilder.ToString(), inventory.Sum(x => x.Cost)));
                 }
             }
 
-            foreach(var price in playerWins.OrderByDescending(x => x.Item2))
-            {
-                Console.WriteLine($"{price.Item2}: {price.Item1}");
-            }
+            var part1 = playerWins.OrderByDescending(x => x.Item2).Last();
+            Console.WriteLine($"Best deal costs {part1.Item2}: {part1.Item1}");
+
+            var part2 = bossWins.OrderBy(x => x.Item2).Last();
+            Console.WriteLine($"Worst deal costs {part2.Item2}: {part2.Item1}");
             
             Console.WriteLine($"  -Gruss Gott");
         }
