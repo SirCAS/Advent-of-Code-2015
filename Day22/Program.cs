@@ -22,7 +22,7 @@ namespace Day22.ConsoleApplication
             Console.WriteLine("| Advent of Code - Day 22 |");
             Console.WriteLine("+-------------------------+");
             
-            for(int x=0; x< 10000; ++x)
+            for(int x=0; x< 100000; ++x)
             {
                 Restart();
                 var result = PlayGame();
@@ -108,6 +108,11 @@ namespace Day22.ConsoleApplication
             GameResult result;
             while(true)
             {
+                // Quick and dirty part 2 implementation...
+                // player.HitPoints--;
+                // result = CheckWinner();
+                // if(result != GameResult.NotFinished) return result;
+
                 ApplyEffects();
 
                 result = CheckWinner();
